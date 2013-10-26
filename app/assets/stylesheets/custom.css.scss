@@ -67,7 +67,36 @@ p {
   line-height: 1;
 }
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
+/* calendar */
+
+#timePickerItem{
+  float: left;
 }
+
+#timeStringItem{
+  clear: both;   
+}
+
+.calendar {  
+  text-align: center;
+  width: 1400px;
+
+  /* change color of font on hover
+  &:hover {
+    color: blue;
+    text-decoration: none;
+  }
+  */
+}
+
+.calendar thead tr th {border: 1px solid black}
+
+.calendar th {
+  height: 50px;
+}
+
+.calendar tbody tr td{
+  border: 1px solid black;
+  height: 100px;
+  text-align: left;
+} 
