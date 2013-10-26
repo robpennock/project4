@@ -79,14 +79,7 @@ p {
 
 .calendar {  
   text-align: center;
-  width: 1400px;
-
-  /* change color of font on hover
-  &:hover {
-    color: blue;
-    text-decoration: none;
-  }
-  */
+  width: 1400px;  
 }
 
 .calendar thead tr th {border: 1px solid black}
@@ -99,4 +92,7 @@ p {
   border: 1px solid black;
   height: 100px;
   text-align: left;
+  &:hover {
+    background-color: #888866;
+  }  
 } 
