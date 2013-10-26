@@ -1,10 +1,6 @@
 var currentDay;
 var firstWeekFlag;
 
-$('#timepicker').timepicker({
-	defaultTime: false
-});
-
 var months = [
 "January",
 "February",
@@ -104,6 +100,10 @@ var do_on_load = function(){
 	makeMonth();
 	//fill in the calendar header
 	$('#month_year').html(getMonthName() + " " + getYear());
+	//setup timepicker plugin
+	$('#timepicker').timepicker({
+		defaultTime: false
+	});
 }
 $(document).ready(do_on_load);
 $(window).bind('page:change', do_on_load);
