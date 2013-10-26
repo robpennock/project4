@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Calendar</title>
+		<!--
+		<script>
+		function showMonth(){
+			var d = new Date();
+			alert(d.getMonth());	
+		}
+		</script>
+		-->
+	</head>
+	<body>
+
+		<input id="test" type="button" value="Show alert box">	
+
+		<!-- http://rubydoc.info/gems/bootstrap-timepicker-rails-addon/0.2.5.1/frames -->
+		<div class="input-append bootstrap-timepicker">
+		  <input id="timepicker" type="text" class="input-small">
+		  <span class="add-on"><i class="icon-time"></i></span>
+		</div>
+		<form name="timeForm">						
+			<input id="eventDetails" type="text" />
+		</form>
+		<table class="calendar">
+			<thead>
+				<tr>
+					<th> << </th>
+					<th> < </th>
+					<th id="month_year" colspan="3"></th>
+					<th> > </th>
+					<th> >> </th>
+				</tr>
+				<tr>
+					<th>Sun</th>
+					<th>Mon</th>
+					<th>Tue</th>
+					<th>Wed</th>
+					<th>Thu</th>
+					<th>Fri</th>
+					<th>Sat</th>					
+				</tr>	
+			</thead>
+			<tbody>
+					
+			</tbody>
+		</table>
+	
+
+		
+
+	</body>
+</html>
