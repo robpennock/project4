@@ -1,4 +1,6 @@
 var currentDay;
+var currentYear;
+var currentMonth;
 var firstWeekFlag;
 
 var months = [
@@ -44,17 +46,17 @@ function getDate(){
 
 function getFirstDay(){
 	var d = new Date();
-	var currentYear = d.getFullYear();
-	var currentMonth = d.getMonth();	
-	var date = new Date(currentYear, currentMonth, 1);
+	var year = d.getFullYear();
+	var month = d.getMonth();	
+	var date = new Date(year, month, 1);
 	return date.getDay();
 }
 
 function getLastDay(){
 	var d = new Date();
-	var currentYear = d.getFullYear();
-	var currentMonth = d.getMonth();	
-	var date = new Date(currentYear, currentMonth + 1, 0);
+	var year = d.getFullYear();
+	var month = d.getMonth();	
+	var date = new Date(year, month + 1, 0);
 	return date.getDate();
 }
 
@@ -91,10 +93,7 @@ function makeMonth(){
 	};
 }	
 
-// $(document).on('click', '#test', function(){
-// 	makeMonth();
-// });	
-
+//sourced from => http://www.stormconsultancy.co.uk/blog/development/code-snippets/jquery-document-ready-events-and-turbolinks/
 var do_on_load = function(){
 	//re-render the calendar on a page change
 	makeMonth();
@@ -107,3 +106,19 @@ var do_on_load = function(){
 }
 $(document).ready(do_on_load);
 $(window).bind('page:change', do_on_load);
+
+$(document).on('click', '#backMonth', function(){
+	alert("backMonth");
+});	
+
+$(document).on('click', '#backYear', function(){
+	alert("backYear");
+});	
+
+$(document).on('click', '#forwardMonth', function(){
+	alert("forwardMonth");
+});	
+
+$(document).on('click', '#forwardYear', function(){
+	alert("forwardYear");
+});	
