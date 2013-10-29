@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 # Bootstrap styling
 gem 'bootstrap-sass', '2.3.2.0'
-#gem 'bootstrap-timepicker-rails-addon' 
+gem 'bootstrap-timepicker-rails-addon' 
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
