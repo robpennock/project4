@@ -16,13 +16,22 @@
 		<!-- input id="test" type="button" value="Show alert box" -->	
 
 		<!-- Sourced from => http://rubydoc.info/gems/bootstrap-timepicker-rails-addon/0.2.5.1/frames -->
-		<div class="input-append bootstrap-timepicker">
+		<!--<div class="input-append bootstrap-timepicker">
 		  <input id="timepicker" type="text" class="input-small">
 		  <span class="add-on"><i class="icon-time"></i></span>
 		</div>
-
-		<form name="timeForm">	
-		</br></br></br></br>					
+		-->
+		<div>
+			<%= select_tag "timeselect", "<option>0000</option><option>0100</option><option>0200</option>
+				<option>0300</option><option>0400</option><option>0500</option><option>0600</option>
+				<option>0700</option><option>0800</option><option>0900</option><option>1000</option>
+				<option>1100</option><option>1200</option><option>1300</option><option>1400</option>
+				<option>1500</option><option>1600</option><option>1700</option><option>1800</option>
+				<option>1900</option><option>2000</option><option>2100</option><option>2200</option>
+				<option>2300</option>
+				".html_safe, :multiple => true %>
+		</div>
+		<form name="timeForm">					
 			<input id="eventDetails" type="text" />
 		</form>
 		<table class="calendar">

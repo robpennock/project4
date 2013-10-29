@@ -29,8 +29,6 @@ GEM
     atomic (1.1.14)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
-    bootstrap-timepicker-rails-addon (0.2.5.1)
-      railties (>= 3.1, < 5.0)
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -119,7 +117,6 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (= 2.3.2.0)
-  bootstrap-timepicker-rails-addon
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails

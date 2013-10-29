@@ -2,7 +2,7 @@ var currentDay;		//globals
 var currentYear;
 var currentMonth;
 var firstWeekFlag;
-var d = new Date();
+var d = new Date();	//date object now global
 
 var months = [
 "January",
@@ -149,14 +149,14 @@ function clearMonth(){
 //sourced from => http://www.stormconsultancy.co.uk/blog/development/code-snippets/jquery-document-ready-events-and-turbolinks/
 var do_on_load = function(){
 	//re-render the calendar on a page change
+	//setup timepicker plugin
+	/*$('#timepicker').timepicker({
+		defaultTime: false
+	});*/
 	initializeCurrentDate();
 	makeMonth();
 	//fill in the calendar header
 	$('#month_year').html(getMonthName() + " " + getYear());
-	//setup timepicker plugin
-	$('#timepicker').timepicker({
-		defaultTime: false
-	});
 }
 $(document).ready(do_on_load);					
 $(window).bind('page:change', do_on_load);	//not quite sure what this does? Does it prevent the "refresh" issue?
