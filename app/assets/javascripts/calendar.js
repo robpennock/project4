@@ -130,9 +130,9 @@ function makeWeek(){
 	//given number of blanks before first day (weekDay), loop until end of week
 	for (var i = 0; i < (7 - numOfBlanks); i++) {				
 		//highlight today's date on calendar
-        if(todaysYear === currentYear && todaysMonth === currentMonth
-        && todaysDate === currentDate){
-            week = week + "<td style='background:yellow'; value='1'>";
+        if(todaysYear == currentYear && todaysMonth == currentMonth
+        && todaysDate == currentDate){
+            week = week + "<td style='background:yellow';>";
         }else{
             week = week + "<td>";
         }
@@ -164,10 +164,6 @@ function updateMonth(){
 //sourced from => http://www.stormconsultancy.co.uk/blog/development/code-snippets/jquery-document-ready-events-and-turbolinks/
 var do_on_load = function(){
 	//re-render the calendar on a page change
-	//setup timepicker plugin
-	/*$('#timepicker').timepicker({
-		defaultTime: false
-	});*/
 	initializeCurrentDate();
 	updateMonth();	
 }
@@ -193,7 +189,19 @@ $(document).on('click', '#forwardYear', function(){
 	updateMonth();
 });	
 
-$(document).on('click', ".calendar tbody td", function(){
-	// var value = $(".calendar tbody").find($"td".val());
-	$(".calendar tbody td ul").append("<li>TESTING</li>");
-});
+// $("#eventDetails").focus(function(){
+// 	$(this).val('');
+// });
+
+$(document).on('click', ".calendar tbody td", function(event){
+	var $td = $(event.target);
+	var $ul = $td.find("ul");
+	var time = $("#timeSelect option:selected").text();
+	var details = "<li>" + $("#eventDetails").val();
+	details = details + " " + time + "</li>"
+	if($("#eventDetails").val() != '' && $("#timeSelect option").is(":selected")){
+		$ul.append(details);
+	}	
+	$("#timeSelect option:selected").removeAttr("selected");
+	$("#eventDetails").val('');
+}); 

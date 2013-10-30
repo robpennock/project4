@@ -78,8 +78,7 @@ p {
 }
 
 .calendar {  
-  text-align: center;
-  width: 1300px;  
+  text-align: center; 
 }
 
 .calendar thead tr th {border: 1px solid black}
@@ -91,6 +90,7 @@ p {
 .calendar tbody tr td{
   border: 1px solid black;
   height: 50px;
+  width: 200px;
   text-align: left;
   &:hover {
     background-color: #888866;
