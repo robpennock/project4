@@ -204,4 +204,4 @@ $(document).on('click', ".calendar tbody td", function(event){
 	}	
 	$("#timeSelect option:selected").removeAttr("selected");
 	$("#eventDetails").val('');
-}); 
+});
