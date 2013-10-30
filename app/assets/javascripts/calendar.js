@@ -1,6 +1,10 @@
-var currentDay;		//globals
+//globals
+var currentDate;		
 var currentYear;
 var currentMonth;
+var todaysDate;		
+var todaysYear;
+var todaysMonth;
 var firstWeekFlag;
 var d = new Date();	//date object now global
 
@@ -21,9 +25,11 @@ var months = [
 
 //sets the date object with current month, day, and year
 function initializeCurrentDate(){
-	currentDay=d.getDay();
 	currentYear=d.getFullYear();
-	currentMonth=d.getMonth();
+	currentMonth=d.getMonth();	
+	todaysYear=d.getFullYear();
+	todaysMonth=d.getMonth();
+	todaysDate=d.getDate();
 }
 // returns a number 0-11 representing the current month
 function getMonth(){
@@ -123,27 +129,34 @@ function makeWeek(){
 	}		
 	//given number of blanks before first day (weekDay), loop until end of week
 	for (var i = 0; i < (7 - numOfBlanks); i++) {				
-		week = week + "<td>";
-		if(currentDay > getLastDay()){
+		//highlight today's date on calendar
+        if(todaysYear === currentYear && todaysMonth === currentMonth
+        && todaysDate === currentDate){
+            week = week + "<td style='background:yellow;'>";
+        }else{
+            week = week + "<td>";
+        }
+        //add blanks at end of month
+		if(currentDate > getLastDay()){
 			week = week + " </td>";
 		}else {
-			week = week + currentDay + "<ul></ul></td>";
+			week = week + currentDate + "<ul></ul></td>";
 		}
-		currentDay++;
+		currentDate++;
 	};	
 	week = week + "</tr>";
 	return week;
 }
 
 function makeMonth(){
-	currentDay = 1;
+	currentDate = 1;
 	firstWeekFlag = true; //make sure blanks are only added to the first of the month
 	for (var i = 0; i < 6; i++) {
 		$('.calendar tbody').append(makeWeek());
 	};
 }	
 function clearMonth(){
-	$('tbody').empty();	//clear the tbody section which contains all calendar cells
+	$('.calendar tbody').empty();	//clear the tbody section which contains all calendar cells
 };
 
 //sourced from => http://www.stormconsultancy.co.uk/blog/development/code-snippets/jquery-document-ready-events-and-turbolinks/
