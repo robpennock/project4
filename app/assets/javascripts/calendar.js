@@ -150,10 +150,7 @@ function makeWeek(){
 function makeMonth(){
 	currentDate = 1;
 	firstWeekFlag = true; //make sure blanks are only added to the first of the month
-	for (var i = 0; i < 5; i++) {
-		$('.calendar tbody').append(makeWeek());
-	}
-	if(currentDate <= getLastDay()){
+	for (var i = 0; currentDate <= getLastDay(); i++) {
 		$('.calendar tbody').append(makeWeek());
 	}
 }	
