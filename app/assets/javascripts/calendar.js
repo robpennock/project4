@@ -132,15 +132,14 @@ function makeWeek(){
 		//highlight today's date on calendar
         if(todaysYear == currentYear && todaysMonth == currentMonth
         && todaysDate == currentDate){
-            week = week + "<td style='background:yellow';>";
+            week = week + "<td style='background:yellow' class='day'>" + currentDate + "</td>";
         }else{
-            week = week + "<td>";
-        }
-        //add blanks at end of month
-		if(currentDate > getLastDay()){
-			week = week + " </td>";
-		}else {
-			week = week + currentDate + "<ul></ul></td>";
+	        //add blanks at end of month
+			if(currentDate > getLastDay()){
+				week = week + "<td> </td>";
+			}else {
+				week = week + "<td class='day'>" + currentDate + "</td>";
+			}
 		}
 		currentDate++;
 	};	
@@ -193,14 +192,13 @@ $(document).on('click', '#forwardYear', function(){
 // 	$(this).val('');
 // });
 
-$(document).on('click', ".calendar tbody td", function(event){
+$(document).on('click', ".day", function(event){
 	var $td = $(event.target);
-	var $ul = $td.find("ul");
 	var time = $("#timeSelect option:selected").text();
-	var details = "<li>" + $("#eventDetails").val();
-	details = details + " " + time + "</li>"
+	var details = "<br/>" + $("#eventDetails").val();
+	details = details + " @ " + time
 	if($("#eventDetails").val() != '' && $("#timeSelect option").is(":selected")){
-		$ul.append(details);
+		$td.append(details);
 	}	
 	$("#timeSelect option:selected").removeAttr("selected");
 	$("#eventDetails").val('');

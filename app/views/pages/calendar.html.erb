@@ -26,13 +26,13 @@
 		</div>
 		<form name="timeForm">
 			<label style="font-weight:bold";>Time:</label>
-			<%= select_tag "timeSelect", "<option>0000</option><option>0100</option><option>0200</option>
-				<option>0300</option><option>0400</option><option>0500</option><option>0600</option>
-				<option>0700</option><option>0800</option><option>0900</option><option>1000</option>
-				<option>1100</option><option>1200</option><option>1300</option><option>1400</option>
-				<option>1500</option><option>1600</option><option>1700</option><option>1800</option>
-				<option>1900</option><option>2000</option><option>2100</option><option>2200</option>
-				<option>2300</option>
+			<%= select_tag "timeSelect", "<option>00:00</option><option>01:00</option><option>02:00</option>
+				<option>03:00</option><option>04:00</option><option>05:00</option><option>06:00</option>
+				<option>07:00</option><option>08:00</option><option>09:00</option><option>10:00</option>
+				<option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option>
+				<option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+				<option>19:00</option><option>20:00</option><option>21:00</option><option>22:00</option>
+				<option>23:00</option>
 				".html_safe, :multiple => true %>	
 			<label style="font-weight:bold";>Description:</label>				
 			<input id="eventDetails" type="text" />
