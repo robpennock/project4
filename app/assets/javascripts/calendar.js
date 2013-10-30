@@ -132,7 +132,7 @@ function makeWeek(){
 		//highlight today's date on calendar
         if(todaysYear === currentYear && todaysMonth === currentMonth
         && todaysDate === currentDate){
-            week = week + "<td style='background:yellow;'>";
+            week = week + "<td style='background:yellow'; value='1'>";
         }else{
             week = week + "<td>";
         }
@@ -155,8 +155,10 @@ function makeMonth(){
 		$('.calendar tbody').append(makeWeek());
 	};
 }	
-function clearMonth(){
+function updateMonth(){
 	$('.calendar tbody').empty();	//clear the tbody section which contains all calendar cells
+	$('#month_year').html(getMonthName() + " " + getYear());
+	makeMonth();
 };
 
 //sourced from => http://www.stormconsultancy.co.uk/blog/development/code-snippets/jquery-document-ready-events-and-turbolinks/
@@ -167,39 +169,31 @@ var do_on_load = function(){
 		defaultTime: false
 	});*/
 	initializeCurrentDate();
-	makeMonth();
-	//fill in the calendar header
-	$('#month_year').html(getMonthName() + " " + getYear());
+	updateMonth();	
 }
 $(document).ready(do_on_load);					
 $(window).bind('page:change', do_on_load);	//not quite sure what this does? Does it prevent the "refresh" issue?
 
+//on-click events for the table header buttons
 $(document).on('click', '#backMonth', function(){
 	decrementMonth();
-	clearMonth();
-	$('#month_year').html(getMonthName() + " " + getYear());
-	makeMonth();
-});	
-
+	updateMonth();	
+});
 $(document).on('click', '#backYear', function(){
 	decrementYear();
-	clearMonth();
-	$('#month_year').html(getMonthName() + " " + getYear());
-	makeMonth();
-});	
-
+	updateMonth();
+});
 $(document).on('click', '#forwardMonth', function(){
 	//alert("forwardMonth");
 	incrementMonth();
-	clearMonth();
-	$('#month_year').html(getMonthName() + " " + getYear());
-	makeMonth();
-
+	updateMonth();
 });	
-
 $(document).on('click', '#forwardYear', function(){
 	incrementYear();
-	clearMonth();
-	$('#month_year').html(getMonthName() + " " + getYear());
-	makeMonth();
+	updateMonth();
 });	
+
+$(document).on('click', ".calendar tbody td", function(){
+	// var value = $(".calendar tbody").find($"td".val());
+	$(".calendar tbody td ul").append("<li>TESTING</li>");
+});
