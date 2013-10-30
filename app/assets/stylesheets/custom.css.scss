@@ -92,8 +92,12 @@ p {
   height: 50px;
   width: 200px;
   text-align: left;
-  &:hover {
-    background-color: #888866;
-  }  
 } 
+
+.day{
+  &:hover{
+    background-color: #888866;
+  }
+}
+
 

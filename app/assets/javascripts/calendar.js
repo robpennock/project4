@@ -150,9 +150,12 @@ function makeWeek(){
 function makeMonth(){
 	currentDate = 1;
 	firstWeekFlag = true; //make sure blanks are only added to the first of the month
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 5; i++) {
 		$('.calendar tbody').append(makeWeek());
-	};
+	}
+	if(currentDate <= getLastDay()){
+		$('.calendar tbody').append(makeWeek());
+	}
 }	
 function updateMonth(){
 	$('.calendar tbody').empty();	//clear the tbody section which contains all calendar cells
