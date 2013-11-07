@@ -130,15 +130,17 @@ function makeWeek(){
 	//given number of blanks before first day (weekDay), loop until end of week
 	for (var i = 0; i < (7 - numOfBlanks); i++) {				
 		//highlight today's date on calendar
+		//add data-day class
         if(todaysYear == currentYear && todaysMonth == currentMonth
         && todaysDate == currentDate){
-            week = week + "<td style='background:yellow' class='day'>" + currentDate + "</td>";
-        }else{
+            week = week + "<td style='background:yellow' class='day' data-day=' "+ currentDate  + "'>" + currentDate + "</td>";
+        }
+        else{
 	        //add blanks at end of month
 			if(currentDate > getLastDay()){
 				week = week + "<td> </td>";
 			}else {
-				week = week + "<td class='day'>" + currentDate + "</td>";
+				week = week + "<td class='day' data-day=' "+ currentDate +"'>" + currentDate + "</td>";
 			}
 		}
 		currentDate++;
@@ -148,11 +150,39 @@ function makeWeek(){
 }
 
 function makeMonth(){
+	//create an aray of appointment for the current month
+	$.ajax({
+		type: 'get',
+		url: "/appointment",
+		dataType: 'json',
+		async: false,
+		data: { month: currentMonth, year: currentYear }
+	}).success(function(data){
+		appointments = data;
+	});
+
+	//create a month one week at a time
 	currentDate = 1;
 	firstWeekFlag = true; //make sure blanks are only added to the first of the month
 	for (var i = 0; currentDate <= getLastDay(); i++) {
 		$('.calendar tbody').append(makeWeek());
 	}
+
+	//add DB appointments to the calendar days
+	var lastDay = getLastDay();
+	console.log(lastDay);
+	for (var i = appointments.length - 1; i >= 0; i--) {
+		for (var j = 1; j <= lastDay; j++) {
+			var temp = "td[data-day=" + j + "]";
+			var $cell = $(temp);
+			console.log($cell);
+			if(appointments[i].date == j){
+				var str = "<br/>" + appointments[i].desc + " @ " + appointments[i].time;
+				$cell.append(str);
+			}
+		};		
+	};	
+
 }	
 function updateMonth(){
 	$('.calendar tbody').empty();	//clear the tbody section which contains all calendar cells
@@ -193,13 +223,27 @@ $(document).on('click', '#forwardYear', function(){
 // });
 
 $(document).on('click', ".day", function(event){
-	var $td = $(event.target);
-	var time = $("#timeSelect option:selected").text();
+	var $cell = $(event.target);
+	var thetime = $("#timeSelect option:selected").text();
 	var details = "<br/>" + $("#eventDetails").val();
-	details = details + " @ " + time
+	details = details + " @ " + thetime
 	if($("#eventDetails").val() != '' && $("#timeSelect option").is(":selected")){
-		$td.append(details);
+		//create a new appointment in the database
+		$.ajax({
+			type: 'post',
+			url: "/appointment",
+			dataType: 'json',
+			async: false,
+			data: { 	
+				month: currentMonth, 
+				day: $cell.data("day"), 
+				year: currentYear,
+				desc: $("#eventDetails").val(),
+				time: $("#timeSelect option:selected").text(), 
+			}
+		})
 	}	
 	$("#timeSelect option:selected").removeAttr("selected");
 	$("#eventDetails").val('');
+	updateMonth();
 });
