@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(version: 20131105235723) do
 
   create_table "appointments", force: true do |t|
-    t.integer  "month"
-    t.integer  "day"
-    t.integer  "year"
-    t.string   "desc"
-    t.string   "time"
+    t.integer  "the_month"
+    t.integer  "the_day"
+    t.integer  "the_year"
+    t.string   "the_desc"
+    t.string   "the_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

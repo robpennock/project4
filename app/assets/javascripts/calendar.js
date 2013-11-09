@@ -7,6 +7,7 @@ var todaysYear;
 var todaysMonth;
 var firstWeekFlag;
 var d = new Date();	//date object now global
+var appointments = [];	//all appointments for the current month
 
 var months = [
 "January",
@@ -29,7 +30,7 @@ function initializeCurrentDate(){
 	currentMonth=d.getMonth();	
 	todaysYear=d.getFullYear();
 	todaysMonth=d.getMonth();
-	todaysDate=d.getDate();
+	todaysDate=d.getDate();	
 }
 // returns a number 0-11 representing the current month
 function getMonth(){
@@ -116,7 +117,7 @@ function decrementYear(){
 }
 //this is the function that pretty much does everything
 //this creates a row of cells 1 week at a time
-function makeWeek(){
+function makeWeek(){	
 	var week = "<tr>";	//our new string of tags to make week row
 	var numOfBlanks = 0;
 	if(firstWeekFlag){
@@ -128,19 +129,18 @@ function makeWeek(){
 		firstWeekFlag = false;	//remember to reset flag
 	}		
 	//given number of blanks before first day (weekDay), loop until end of week
-	for (var i = 0; i < (7 - numOfBlanks); i++) {				
+	for (var i = 0; i < (7 - numOfBlanks); i++) {
 		//highlight today's date on calendar
-		//add data-day class
         if(todaysYear == currentYear && todaysMonth == currentMonth
         && todaysDate == currentDate){
-            week = week + "<td style='background:yellow' class='day' data-day=' "+ currentDate  + "'>" + currentDate + "</td>";
-        }
-        else{
+            week = week + "<td style='background:pink' class='day' data-day='" + 
+        	currentDate + "'>" + currentDate + "</td>";
+        }else{
 	        //add blanks at end of month
 			if(currentDate > getLastDay()){
 				week = week + "<td> </td>";
 			}else {
-				week = week + "<td class='day' data-day=' "+ currentDate +"'>" + currentDate + "</td>";
+				week = week + "<td class='day' data-day='" + currentDate + "'>" + currentDate + "</td>";
 			}
 		}
 		currentDate++;
@@ -156,7 +156,7 @@ function makeMonth(){
 		url: "/appointment",
 		dataType: 'json',
 		async: false,
-		data: { month: currentMonth, year: currentYear }
+		data: { the_month: currentMonth, the_year: currentYear }
 	}).success(function(data){
 		appointments = data;
 	});
@@ -170,15 +170,13 @@ function makeMonth(){
 
 	//add DB appointments to the calendar days
 	var lastDay = getLastDay();
-	console.log(lastDay);
 	for (var i = appointments.length - 1; i >= 0; i--) {
 		for (var j = 1; j <= lastDay; j++) {
 			var temp = "td[data-day=" + j + "]";
-			var $cell = $(temp);
-			console.log($cell);
-			if(appointments[i].date == j){
-				var str = "<br/>" + appointments[i].desc + " @ " + appointments[i].time;
-				$cell.append(str);
+			var $das_cell = $(temp);
+			if(appointments[i].the_day == j){
+				var str = "<br/>" + appointments[i].the_desc + " @ " + appointments[i].the_time;
+				$das_cell.append(str);
 			}
 		};		
 	};	
@@ -223,10 +221,10 @@ $(document).on('click', '#forwardYear', function(){
 // });
 
 $(document).on('click', ".day", function(event){
-	var $cell = $(event.target);
-	var thetime = $("#timeSelect option:selected").text();
+	var $das_cell = $(event.target);
+	var time = $("#timeSelect option:selected").text();
 	var details = "<br/>" + $("#eventDetails").val();
-	details = details + " @ " + thetime
+	details = details + " @ " + time
 	if($("#eventDetails").val() != '' && $("#timeSelect option").is(":selected")){
 		//create a new appointment in the database
 		$.ajax({
@@ -234,16 +232,17 @@ $(document).on('click', ".day", function(event){
 			url: "/appointment",
 			dataType: 'json',
 			async: false,
-			data: { 	
-				month: currentMonth, 
-				day: $cell.data("day"), 
-				year: currentYear,
-				desc: $("#eventDetails").val(),
-				time: $("#timeSelect option:selected").text(), 
+			data: { 
+				//order doesn't matter, rails knows what to do with named fields
+				the_desc: $("#eventDetails").val(), 
+				the_time: $("#timeSelect option:selected").text(), 
+				the_day: $das_cell.data("day"), 
+				the_month: currentMonth, 
+				the_year: currentYear 
 			}
 		})
-	}	
+	}
+	$cell.append(details);	
 	$("#timeSelect option:selected").removeAttr("selected");
-	$("#eventDetails").val('');
-	updateMonth();
+	$("#eventDetails").val('');	
 });
